@@ -21,6 +21,21 @@ player_lvl = 1
 water_lvl = 1
 termo_lvl = 0
 auto = False
+feathered_friend = False
+bird_level = False
+king_of_birds = False
+first_coins = False
+rich = False
+hot_springs_tycoon = False
+warm_water = False
+perfect_onsen = False
+automation = False
+relax_master = False
+improver = False
+perfectionist = False
+store_visitor = False
+patient = False
+capybara_tycoon = False
 cur_time = time.time()
 
 background = transform.scale(image.load('bg.png'), (932, 564))
@@ -33,6 +48,7 @@ money = transform.scale(image.load('money .png'), (155, 50))
 shop = transform.scale(image.load('shop.png'), (63, 48))
 termo = transform.scale(image.load('termo 1.png'), (40, 100))
 autoclick = transform.scale(image.load('auto_click_off.png'), (180, 80))
+
 
 training_lines = [
     'Кликай по капибаре, чтобы зарабатывать очки.       Монета  -> усиливает один клик (+1 к силе).',
@@ -207,17 +223,111 @@ while True:
                 if rect_i.collidepoint(e.pos):
                     count += per_click * multiplier
                     save_game()
+
+                if player_lvl == 2:
+                    feathered_friend = True
+                    if feathered_friend == True:
+                        achievements = transform.scale(image.load('Пернатый друг.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if player_lvl == 3:
+                    bird_level = True
+                    if bird_level == True:
+                        achievements = transform.scale(image.load('Птичий уровень.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if player_lvl == 5:
+                    king_of_birds = True
+                    if king_of_birds == True:
+                        achievements = transform.scale(image.load('Король птиц.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if count == 100:
+                    first_coins = True
+                    if first_coins == True:
+                        achievements = transform.scale(image.load('Первые монеты.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if count == 1000:
+                    rich = True
+                    if rich == True:
+                        achievements = transform.scale(image.load('Богач.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if count == 10000:
+                    hot_springs_tycoon = True
+                    if hot_springs_tycoon == True:
+                        achievements = transform.scale(image.load('Магнат горячих источников.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if water_lvl == 3:
+                    warm_water = True
+                    if warm_water == True:
+                        achievements = transform.scale(image.load('Тёплая водичка.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if water_lvl == 5:
+                    perfect_onsen = True
+                    if perfect_onsen == True:
+                        achievements = transform.scale(image.load('Идеальный онсэн.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if auto == True:
+                    automation = True
+                    if automation == True:
+                        achievements = transform.scale(image.load('Автоматизация.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if new_time - cur_time == 600:
+                    relax_master = True
+                    if relax_master == True:
+                        achievements = transform.scale(image.load('Релакс мастер.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if water_lvl == 2 or player_lvl == 2 or per_click == 2:
+                    improver = True
+                    if improver == True:
+                        achievements = transform.scale(image.load('Улучшатор.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if water_lvl == 5 or player_lvl == 5 or per_click == 10:
+                    perfectionist = True
+                    if perfectionist == True:
+                        achievements = transform.scale(image.load('Перфекционист.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
+                if new_time - cur_time == 3600:
+                    patient = True
+                    if relax_master == True:
+                        achievements = transform.scale(image.load('Релакс мастер.png'), (165, 210))
+                        window.blit(achievements, (50, 0))
+                        count += 500
+
                     
             elif state == "quest":
                 if quest_continue_rect.collidepoint(e.pos):
                     state = "game"
                 if quest_training_rect.collidepoint(e.pos):
-                    background = transform.scale(image.load('bc_tr.png'), (932, 564))
+                    # background = transform.scale(image.load('bc_tr.png'), (932, 564))
                     state = "training"
                 if quest_btn_rect.collidepoint(e.pos):
                     save_game()
                     quit()
                     sys.exit()
+
+
 
     window.blit(background, (0, 0))
     if state == "training":
