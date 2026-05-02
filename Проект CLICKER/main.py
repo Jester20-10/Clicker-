@@ -4,6 +4,7 @@ import sys
 import time
 import json
 import os
+import random
 
 init()
 window = display.set_mode((932, 564))
@@ -102,6 +103,7 @@ rect_w = water.get_rect(center=(458, 23))
 rect_m = money.get_rect(center=(630, 23))
 rect_a = autoclick.get_rect(center=(785, 23))
 rect_t = termo.get_rect(center=(40, 100))
+rect_s =  ship.get_rect(center=(400, 550))
 
 start_btn_rect = Rect(326, 252, 290, 60)
 quest_btn_rect = Rect(326, 410, 290, 60)
@@ -201,6 +203,7 @@ def format_number(count):
         index += 1
     formatted = f'{count:.2f}'.rstrip('0').rstrip('.')
     return f'{formatted}{suffixes[index]}'
+flag = False
 
 while True:
     keys_pressed = key.get_pressed()
@@ -322,6 +325,9 @@ while True:
                 if rect_i.collidepoint(e.pos):
                     count += per_click * multiplier
                     save_game()
+                
+                if rect_s.collidepoint(e.pos):
+                    count += 1000000
                     
             elif state == "quest":
                 if quest_continue_rect.collidepoint(e.pos):
@@ -350,8 +356,16 @@ while True:
         count += per_click * multiplier
         cur_time = new_time
 
-    playtime = saved_playtime + (new_time - session_start_time)
+    if new_time - cur_time >= 1:
+        ship_pr  = random.randint(1, 10)
+        print(ship_pr)
+        if ship_pr == 8:
+            flag = True 
+            
+        cur_time = new_time
 
+    playtime = saved_playtime + (new_time - session_start_time)
+    
     if playtime >= 600 and not reward_relax_master:
         relax_master = True
         reward_relax_master = True
@@ -662,6 +676,9 @@ while True:
         window.blit(shop, (855, 0))
         window.blit(termo, (0, 50))
         window.blit(img, rect_i)
+        if flag == True:
+            ship = transform.scale(image.load('корабль.png'), (289, 259))
+            window.blit(ship, (100, 100))
         window.blit(my_font.render(f"{format_number(count)}", True, (255, 255, 255)), (90, 15))
     
     elif state == 'quest':
